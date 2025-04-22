@@ -3,34 +3,29 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+class Solution
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    bool increasingTriplet(std::vector<int>& nums)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        int size_of_nums = nums.size();
+        for (int i = 0; i < size_of_nums; i++)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            for (int j = i+1; j < size_of_nums; j++)
             {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
+                if (nums[i] < nums[j])
+                {
+                    for (int k = j + 1; k < size_of_nums; k++)
+                    {
+                        if (nums[j] < nums[k])
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
         }
-        return heighest_water;
+        return false;
     }
 };
 int main()

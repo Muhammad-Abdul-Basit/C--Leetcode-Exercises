@@ -3,34 +3,26 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
-{
+class Solution {
  public:
-    int maxArea(std::vector<int>& height) 
+    int pivotIndex(std::vector<int>& nums)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        int total_sum = 0;
+        for (int i : nums)
         {
-            int width = right - left;
-            if (height[left] < height[right])
-            {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
+            total_sum += i;
         }
-        return heighest_water;
+        int left_sum = 0;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            int right_sum = total_sum - left_sum - nums[i];
+            if (right_sum == left_sum)
+            {
+                return i;
+            }
+            left_sum += nums[i];
+        }
+        return -1;
     }
 };
 int main()

@@ -2,35 +2,27 @@
 //
 
 #include <iostream>
-#include<vector>
-class Solution 
+#include <vector>
+class Solution
 {
- public:
-    int maxArea(std::vector<int>& height) 
+public:
+    bool canPlaceFlowers(std::vector<int>& flowerbed, int n)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        int length_of_vector = flowerbed.size();
+        int i = 0;
+        while (i < length_of_vector)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            if ((flowerbed[i] == 0) && (i == 0 || flowerbed[i - 1] == 0) && (i == length_of_vector - 1 || flowerbed[i + 1] == 0))
             {
-                temp_water=(height[left])* (width);
-                left++;
+                n = n - 1;
+                i = i + 2;
             }
             else
             {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
+                i = i + 1;
             }
         }
-        return heighest_water;
+        return (n <= 0);
     }
 };
 int main()

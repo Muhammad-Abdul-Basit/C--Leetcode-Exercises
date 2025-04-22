@@ -3,34 +3,26 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+#include<algorithm>
+class Solution
 {
- public:
-    int maxArea(std::vector<int>& height) 
+public:
+    std::vector<bool> kidsWithCandies(std::vector<int>& candies, int extraCandies)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        std::vector<bool> greatest_candies_kids;
+        auto max_element = std::max_element(candies.begin(), candies.end());
+        for (int i : candies)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            if ((i + extraCandies) >= *max_element)
             {
-                temp_water=(height[left])* (width);
-                left++;
+                greatest_candies_kids.push_back(true);
             }
             else
             {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
+                greatest_candies_kids.push_back(false);
             }
         }
-        return heighest_water;
+        return greatest_candies_kids;
     }
 };
 int main()

@@ -2,35 +2,40 @@
 //
 
 #include <iostream>
-#include<vector>
-class Solution 
+#include<string>
+#include<cctype>
+class Solution
 {
- public:
-    int maxArea(std::vector<int>& height) 
+public:
+    std::string reverseVowels(std::string s)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        int length_of_s = s.size();
+        int i = 0;
+        int j = length_of_s - 1;
+        while (i < j)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            if (!isVowel(s[i]))
             {
-                temp_water=(height[left])* (width);
-                left++;
+                i = i + 1;
+            }
+            else if (!isVowel(s[j]))
+            {
+                j = j - 1;
             }
             else
             {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
+                std::swap((s[i]), (s[j]));
+                i = i + 1;
+                j = j - 1;
             }
         }
-        return heighest_water;
+
+        return s;
+    }
+    bool isVowel(char c)
+    {
+        c = std::tolower(c);
+        return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
     }
 };
 int main()

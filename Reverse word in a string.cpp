@@ -3,34 +3,27 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+#include<string>
+#include<sstream>
+class Solution
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    std::string reverseWords(std::string s)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        std::reverse(s.begin(), s.end());
+        std::string word;
+        std::string reverse_string;
+        std::istringstream iss(s);
+        while (iss >> word)
         {
-            int width = right - left;
-            if (height[left] < height[right])
-            {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
+            std::reverse(word.begin(), word.end());
+            reverse_string += word + " ";
         }
-        return heighest_water;
+        if (!reverse_string.empty())
+        {
+            reverse_string.pop_back();
+        }
+        return reverse_string;
     }
 };
 int main()

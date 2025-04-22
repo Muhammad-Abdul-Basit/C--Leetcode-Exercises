@@ -3,34 +3,33 @@
 
 #include <iostream>
 #include<vector>
+#include<algorithm>
 class Solution 
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    int maxOperations(std::vector<int>& nums, int k) 
     {
-        int right = height.size() - 1;
+        std::sort(nums.begin(), nums.end());
         int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
-        {
-            int width = right - left;
-            if (height[left] < height[right])
+        int right = nums.size() - 1;
+        int count = 0;
+        while (left < right) {
+            if (nums[left] + nums[right] < k) 
             {
-                temp_water=(height[left])* (width);
                 left++;
             }
-            else
+            else if (nums[left] + nums[right] > k) 
             {
-                temp_water = (height[right]) * (width);
                 right--;
             }
-            if (temp_water > heighest_water)
+            else 
             {
-                heighest_water = temp_water;
+                count++;
+                left++;
+                right--;
             }
         }
-        return heighest_water;
+        return count;
     }
 };
 int main()

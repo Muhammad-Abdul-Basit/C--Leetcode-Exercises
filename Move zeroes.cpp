@@ -3,34 +3,13 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+#include<algorithm>
+class Solution
 {
- public:
-    int maxArea(std::vector<int>& height) 
+public:
+    void moveZeroes(std::vector<int>& nums)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
-        {
-            int width = right - left;
-            if (height[left] < height[right])
-            {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
-        }
-        return heighest_water;
+        std::stable_partition(nums.begin(), nums.end(), [](int x) { return x != 0; }); //  stable_partition, All elements that satisfy the condition (i.e., non-zero elements) are placed in the front of the range, in the same order as they appeared in the original vector.                                   
     }
 };
 int main()

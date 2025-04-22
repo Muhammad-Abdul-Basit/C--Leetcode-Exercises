@@ -3,34 +3,30 @@
 
 #include <iostream>
 #include<vector>
+#include<unordered_set>
 class Solution 
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    std::vector<std::vector<int>> findDifference(std::vector<int>& nums1, std::vector<int>& nums2)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        std::unordered_set<int> set1(nums1.begin(), nums1.end());
+        std::unordered_set<int> set2(nums2.begin(), nums2.end());
+        std::vector<int> answer1, answer2;
+        for (int num : set1)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            if (set2.find(num) == set2.end())
             {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
+                answer1.push_back(num);
             }
         }
-        return heighest_water;
+        for (int num : set2)
+        {
+            if (set1.find(num) == set1.end())
+            {
+                answer2.push_back(num);
+            }
+        }
+        return { answer1 ,answer2 };
     }
 };
 int main()

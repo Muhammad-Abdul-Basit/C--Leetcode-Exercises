@@ -3,34 +3,31 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+class Solution
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    int longestSubarray(std::vector<int>& nums)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        int zero_count = 0;
+        int one_count = 0;
+        int window_start = 0;
+        for (int i = 0; i < nums.size(); i++)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            if (nums[i] == 0)
             {
-                temp_water=(height[left])* (width);
-                left++;
+                zero_count++;
             }
-            else
+            while (zero_count > 1)
             {
-                temp_water = (height[right]) * (width);
-                right--;
+                if (nums[window_start] == 0)
+                {
+                    zero_count--;
+                }
+                window_start++;
             }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
+            one_count = std::max(one_count, i - window_start);
         }
-        return heighest_water;
+        return one_count;
     }
 };
 int main()

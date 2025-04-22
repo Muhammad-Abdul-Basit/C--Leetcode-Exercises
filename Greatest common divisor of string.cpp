@@ -2,36 +2,21 @@
 //
 
 #include <iostream>
-#include<vector>
-class Solution 
+#include <string>
+#include <numeric>
+class Solution
 {
- public:
-    int maxArea(std::vector<int>& height) 
-    {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+    public:
+        std::string gcdOfStrings(std::string str1, std::string str2)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            if (str1 + str2 != str2 + str1)
             {
-                temp_water=(height[left])* (width);
-                left++;
+                return "";
             }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
+            int gcd_length = std::gcd(str1.size(), str2.size());
+            return str1.substr(0, gcd_length);
+
         }
-        return heighest_water;
-    }
 };
 int main()
 {

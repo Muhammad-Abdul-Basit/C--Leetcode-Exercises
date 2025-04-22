@@ -3,34 +3,19 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+class Solution
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    int largestAltitude(std::vector<int>& gain)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        int highest_altitude = 0;
+        int previous_sum = 0;
+        for (int i = 0; i < gain.size(); i++)
         {
-            int width = right - left;
-            if (height[left] < height[right])
-            {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
+            previous_sum = previous_sum + gain[i];
+            highest_altitude = std::max(highest_altitude, previous_sum);
         }
-        return heighest_water;
+        return highest_altitude;
     }
 };
 int main()

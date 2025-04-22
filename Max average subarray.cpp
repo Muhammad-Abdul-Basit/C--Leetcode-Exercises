@@ -3,34 +3,35 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+class Solution
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    double findMaxAverage(std::vector<int>& nums, int k)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        double avg=0.0;
+        int size = nums.size();
+        if (size == 1 && k == 1)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            avg = static_cast<double>(nums[0]) / k;
+            return (avg);
+        }
+        int window_sum = 0;;
+        int highest_sum = INT_MIN;
+        for (int i = 0; i < k; i++)
+        {
+            window_sum = window_sum+ nums[i];
+        }
+        highest_sum = window_sum;
+        for (int i = k; i < size; i++)
+        {
+            window_sum = window_sum - nums[i - k] + nums[i];
+            if (window_sum > highest_sum)
             {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
+                highest_sum = window_sum;
             }
         }
-        return heighest_water;
+        avg = static_cast<double> (highest_sum) / k;
+        return avg;
     }
 };
 int main()

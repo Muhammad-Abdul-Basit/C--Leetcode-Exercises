@@ -2,35 +2,24 @@
 //
 
 #include <iostream>
-#include<vector>
-class Solution 
+#include<string>
+class Solution
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    bool isSubsequence(std::string s, std::string t)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        int i=0, j=0;
+        int size_of_s = s.size();
+        int size_of_t = t.size();
+        while (i < size_of_s && j < size_of_t)
         {
-            int width = right - left;
-            if (height[left] < height[right])
+            if (s[i] == t[j])
             {
-                temp_water=(height[left])* (width);
-                left++;
+                i++;
             }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
+            j++;
         }
-        return heighest_water;
+        return (i == size_of_s);
     }
 };
 int main()

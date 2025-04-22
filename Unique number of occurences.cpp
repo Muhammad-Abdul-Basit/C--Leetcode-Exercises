@@ -3,34 +3,24 @@
 
 #include <iostream>
 #include<vector>
-class Solution 
+#include<unordered_map>
+#include<unordered_set>
+class Solution
 {
  public:
-    int maxArea(std::vector<int>& height) 
+    bool uniqueOccurrences(std::vector<int>& arr)
     {
-        int right = height.size() - 1;
-        int left = 0;
-        int heighest_water = 0;
-        int temp_water=0;
-        while (left <  right)
+        std::unordered_map<int, int> count_map;
+        for (int num : arr)
         {
-            int width = right - left;
-            if (height[left] < height[right])
-            {
-                temp_water=(height[left])* (width);
-                left++;
-            }
-            else
-            {
-                temp_water = (height[right]) * (width);
-                right--;
-            }
-            if (temp_water > heighest_water)
-            {
-                heighest_water = temp_water;
-            }
+            count_map[num]++;
         }
-        return heighest_water;
+        std::unordered_set<int> occurrences_set;
+        for (auto& num : count_map)
+        {
+            occurrences_set.insert(num.second);
+        }
+        return (occurrences_set.size() == count_map.size());
     }
 };
 int main()
